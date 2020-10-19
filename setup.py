@@ -19,8 +19,15 @@ long_description = 'Temporary'
 #     long_description = f.read()
 
 
-with open('requirements.txt') as f:
-    requires = f.read().strip().split('\n')
+requires = [
+    'aiofile>=3.1.1',
+    'aiohttp>=3.6.3',
+    'cchardet>=2.1.6',
+    'pycryptodome>=3.9.8',
+    'typing_extensions>=3.7.4.3',
+]
+# with open('requirements.txt') as f:
+#     requires = f.read().strip().split('\n')
 
 
 setup(
@@ -31,7 +38,7 @@ setup(
     description='Easily develop codef api',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/codef-io/aio_easycodefpy.git',
+    url='https://github.com/codef-io/aio-easycodefpy.git',
     packages=find_packages(exclude=['cmd']),
     keywords=[
         'easycodef',
@@ -40,7 +47,7 @@ setup(
         'codef-py',
         'codef-python'
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.5',
     zip_safe=False,
     classifiers=[
         'Programming Language :: Python :: 3.7',
