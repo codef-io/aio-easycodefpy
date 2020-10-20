@@ -18,7 +18,6 @@ CODEF는 온라인에 흩어진 데이터를 클라이언트 엔진과 웹 API �
 $ python -m pip install aio-easycodefpy
 ```
 
-
 # Use it!
 
 ## Quik Start
@@ -27,8 +26,34 @@ $ python -m pip install aio-easycodefpy
 > **샌드박스에서는 필수 요청 파라미터 여부를 체크한 뒤 요청 상품에 따른 예정되어 있는 고정 응답 값을 반환합니다.**  
 > **사용자는 샌드박스를 통해 코드에프 연동에 대한 개발 연습과 상품 별 응답 자료 구조 등을 확인 할 수 있습니다.**
 
+## 1. Codef 클래스 사용
+`aio-easycodefpy`는 `aiohttp` 프레임워크를 사용하여 비동기 네트워크를 지원합니다. 
+그리고 `aiohttp.ClientSession`의 컨텍스트를 `Codef` 클래스 내부적에서 관리하고 있으며, 인스턴스 당 하나의 세션을 할당합니다.
 
-## 1. 토큰 요청
+```py
+class Codef(object):
+    def __init__(self):
+        ...
+        self.__session = asyncio.ClientSession()
+```
+
+세션의 컨텍스트를 관리하기 위해 `close()` 메소드를 제공하고 있으며, 비동기 컨텍스트 매니저를 사용할 수 있습니다.
+
+```py
+from aio_easycodefpy import Codef
+
+async def main():
+    codef = Codef()
+    await codef.close()
+
+    #### or
+
+    async with Codef() as codef:
+        ...
+```
+
+
+## 2. 토큰 요청
 
 CODEF API 서비스를 이용하기 위해서는 서비스 이용에 대한 자격 증명을 통해 토큰을 발급받아야 합니다. 토큰은 모든 요청시 헤더 값에 포함되어야 하며 한번 발급 받은 토큰은 일주일간 재사용이 가능합니다. 
 
@@ -81,7 +106,7 @@ asyncio.get_event_loop().run_until_complete(main())
 ```
 
 
-## 2. 계정 관리
+## 3. 계정 관리
 
 CODEF API 서비스의 여러 상품들 중 요청 파라미터에 Connected ID가 필요한 경우가 있습니다. 인증이 필요한 CODEF API를 사용하기 위해서는 엔드 유저(End User) 계정 정보(대상기관의 인증수단)등록이 필요하며, 이를 통해 사용자마다 다른 Connected ID를 발급받을 수 있습니다. (Connected ID는 [개발가이드 인증방식](https://developer.codef.io/cert/account/cid-overview)에서 자세한 내용을 확인하세요.) 
 
@@ -97,7 +122,7 @@ Connected ID 발급 이후에는 직접적인 계정 정보 전송 없이 대상
 ...
 
 async def main():
-    # 비동기 컨텍스트 매니저 사용
+    # 비동기 컨텍스트 매니저 사용 가능
     async with Codef() as codef:
 
         ...
@@ -167,7 +192,7 @@ asyncio.get_event_loop().run_until_complete(main())
 ![코드에프 인증서 릴레이 서비스](http://download.codef.io/codef-relay-server01.png)
 
 
-## 3. 상품 요청
+## 4. 상품 요청
 
 엔드 유저의 계정 등록 과정을 거쳐 상품 사용 준비가 끝났다면 이제 발급받은 Connected ID와 필요한 파라미터 정보 설정 등을 통해 코드에프 API 상품 요청을 할 수 있습니다.  Connected ID를 사용하는 상품과 Connected ID를 사용하지 않는 상품 요청 예제를 아래 코드를 통해 
 확인하겠습니다.
@@ -413,4 +438,4 @@ class ServiceType(Enum):
 
 # Ask us
 
-easycodefpy 라이브러리 사용에 대한 문의사항과 개발 과정에서의 오류 등에 대한 문의를 [홈페이지 문의게시판](https://codef.io/#/cs/inquiry)에 올려주시면 운영팀이 답변을 드립니다. 문의게시판의 작성 양식에 맞춰 문의 글을 남겨주세요. 가능한 빠르게 응답을 드리겠습니다.
+`aio-eaasycodefpy` 라이브러리 사용에 대한 문의사항과 개발 과정에서의 오류 등에 대한 문의를 [홈페이지 문의게시판](https://codef.io/#/cs/inquiry)에 올려주시면 운영팀이 답변을 드립니다. 문의게시판의 작성 양식에 맞춰 문의 글을 남겨주세요. 가능한 빠르게 응답을 드리겠습니다.

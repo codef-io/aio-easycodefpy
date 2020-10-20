@@ -14,9 +14,8 @@ def get_metadata(resource):
     raise ValueError(f'could not find {resource}')
 
 
-long_description = 'Temporary'
-# with open('README.md', 'r', encoding='utf-8') as f:
-#     long_description = f.read()
+with open('README.md', 'r', encoding='utf-8') as f:
+    long_description = f.read()
 
 
 requires = [
@@ -26,8 +25,6 @@ requires = [
     'pycryptodome>=3.9.8',
     'typing_extensions>=3.7.4.3',
 ]
-# with open('requirements.txt') as f:
-#     requires = f.read().strip().split('\n')
 
 
 setup(

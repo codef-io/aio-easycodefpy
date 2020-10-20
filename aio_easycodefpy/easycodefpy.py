@@ -74,7 +74,11 @@ def _has_two_way_keyword(data: dict) -> bool:
 
 
 class AccessToken(object):
-
+    """
+    액세스 토큰 관리 클래스다.
+    서비스 타입별로 Codef 인스턴스 내부에서 액세스 토큰을 관리한다.
+    요청 시 입력되는 서비스 타입을 기반으로 이 클래스 멤버 변수에 액세스 토큰을 관리한다.
+    """
     def __init__(self):
         self.product = ''
         self.demo = ''
@@ -155,6 +159,13 @@ class Codef(object):
             service_type: ServiceType,
             param: dict
     ) -> str:
+        """
+        상품 요청 메소드
+        :param product_path: API URL 경로
+        :param service_type: 서비스 타입
+        :param param: 요청 파라미터
+        :return:
+        """
         # 클라이언트 정보 체크
         if not self.check_client_info(service_type):
             return json.dumps(MESSAGE_EMPTY_CLIENT_INFO, ensure_ascii=False)
@@ -173,6 +184,14 @@ class Codef(object):
         return json.dumps(res, ensure_ascii=False)
 
     async def request_certification(self, product_path: str, service_type: ServiceType, param: dict) -> str:
+        """
+        추가 인증 상품 요청.
+        request_product와 다르게 추가 인증에 필요한 데이터가 존재하는지 검사한다.
+        :param product_path: API URL 경로
+        :param service_type: 서비스 타입
+        :param param: 요청 파라미터
+        :return:
+        """
         # 클라이언트 정보 체크
         if not self.check_client_info(service_type):
             return json.dumps(MESSAGE_EMPTY_CLIENT_INFO, ensure_ascii=False)

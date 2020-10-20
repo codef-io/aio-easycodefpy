@@ -93,7 +93,6 @@ async def set_token(
     :param client_secret:
     :param codef:
     :param service_type:
-    :param session: 요청 세션
     :return:
     """
     repeat_cnt = 3
